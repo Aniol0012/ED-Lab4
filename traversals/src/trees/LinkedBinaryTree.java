@@ -207,7 +207,10 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         @Override
         public void set(E e) {
             // TODO: Exercise 3
-            throw new UnsupportedOperationException("TODO: Exercise 3");
+            if (lastReturned == null) {
+                throw new IllegalStateException("The next() method must be called before set()");
+            }
+            lastReturned.element = e;
         }
 
         /**
