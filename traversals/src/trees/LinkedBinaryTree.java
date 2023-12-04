@@ -40,7 +40,11 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
         static <E> Node<E> copy(Node<E> node) {
             // TODO: Exercise 1
-            throw new UnsupportedOperationException("Exercise 1");
+            if (node == null) {
+                return null;
+            } else {
+                return new Node<>(copy(node.left), node.element, copy(node.right));
+            }
         }
 
         Node<E> right() {
@@ -90,7 +94,11 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
     public LinkedBinaryTree(LinkedBinaryTree<E> tree) {
         // TODO: Exercise 1
-        throw new UnsupportedOperationException("TODO: Exercise 1");
+        if (tree.root == null) {
+            root = null;
+        } else {
+            root = Node.copy(tree.root);
+        }
     }
 
     private LinkedBinaryTree(Node<E> root) {
@@ -180,9 +188,12 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         private Node<E> next;
         private Node<E> lastReturned;
 
+        // Added to keep track of whether the iterator has been started
+        private boolean started = false;
+
         public InOrderIterator() {
             // TODO: Exercise 3
-            throw new UnsupportedOperationException("TODO: Exercise 3");
+            next = root;
         }
 
         /**
@@ -191,7 +202,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          *
          * @param e the element with which to replace the last element returned by
          *          {@code next}
-         * @throws IllegalStateException         if  {@code next} have not been called,
+         * @throws IllegalStateException if  {@code next} have not been called,
          */
         @Override
         public void set(E e) {
@@ -206,10 +217,34 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          *
          * @return {@code true} if the iteration has more elements
          */
+
         @Override
         public boolean hasNext() {
             // TODO: Exercise 3
-            throw new UnsupportedOperationException("TODO: Exercise 3");
+            if (next == null && !started) {
+                next = findNext(root, null);
+            }
+            return next != null;
+        }
+
+        private Node<E> findNext(Node<E> start, Node<E> target) {
+            if (start == null) {
+                return null;
+            }
+            Node<E> left = findNext(start.left, target);
+            if (left != null) {
+                return left;
+            }
+            if (target == null && start.left == null) {
+                return start;
+            }
+            if (start == target) {
+                target = null;
+            }
+            if (target == null && start.right != null) {
+                return findNext(start.right, target);
+            }
+            return findNext(start.right, target);
         }
 
         /**
@@ -218,12 +253,21 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          * @return the next element in the iteration
          * @throws NoSuchElementException if the iteration has no more elements
          */
+
+
         @Override
         public E next() {
             // TODO: Exercise 3
-            throw new UnsupportedOperationException("TODO: Exercise 3");
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            started = true;
+            lastReturned = next;
+            next = findNext(root, next);
+            return lastReturned.element;
         }
     }
+
     /**
      * Returns an iterator for traversing the binary tree in level-order.
      *
@@ -266,7 +310,10 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         @Override
         public void set(E e) {
             // TODO: Exercise 4
-            throw new UnsupportedOperationException("TODO: Exercise 4");
+            if (lastReturned == null) {
+                throw new IllegalStateException();
+            }
+            lastReturned.element = e;
         }
 
         /**
