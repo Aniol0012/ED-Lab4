@@ -28,7 +28,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         int size;
 
         // TODO: Exercise 2
-        boolean isRightChild;
 
         Node(Node<E> left, E element, Node<E> right) {
             this.left = left;
@@ -287,13 +286,15 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
     // TODO: Exercise 5
     private class LevelOrderIterator implements BinaryTreeIterator<E> {
 
-        private final Deque<Node<E>> queue; // Only non-null nodes are in the queue
+        private final Deque<Node<E>> queue = new ArrayDeque<>(); // Only non-null nodes are in the queue
 
         private Node<E> lastReturned;
 
-        LevelOrderIterator() {
+        LevelOrderIterator(Node<E> root) {
             // TODO: Exercise 4
-            throw new UnsupportedOperationException("TODO: Exercise 4");
+            if (root != null) {
+                queue.addLast(root);
+            }
         }
 
         /**
@@ -329,7 +330,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         @Override
         public boolean hasNext() {
             // TODO: Exercise 4
-            throw new UnsupportedOperationException("TODO: Exercise 4");
+            return !queue.isEmpty();
         }
 
         /**
@@ -340,8 +341,18 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          */
         @Override
         public E next() {
-            // TODO: Exercise 4
-            throw new UnsupportedOperationException("TODO: Exercise 4");
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            lastReturned = queue.removeFirst();
+            if (lastReturned.left != null) {
+                queue.addLast(lastReturned.left);
+            }
+            if (lastReturned.right != null) {
+                queue.addLast(lastReturned.right);
+            }
+            return lastReturned.element;
         }
     }
 }
