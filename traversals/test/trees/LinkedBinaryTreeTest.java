@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedBinaryTreeTest extends AbstractLinkedBinaryTreeTest {
 
-    // equals tests
+    // equals
 
     @Test
     @DisplayName("equals on both empty should be true")
@@ -53,18 +53,18 @@ class LinkedBinaryTreeTest extends AbstractLinkedBinaryTreeTest {
     @DisplayName("setRoot on an empty tree should throw NoSuchElementException")
     void setRoot1() {
         assertThrows(NoSuchElementException.class, () -> {
-            empty.setRoot(45);
+            empty.setRoot(42);
         });
     }
 
     @Test
     @DisplayName("setRoot on a non-empty tree should replace the root")
     void setRoot2() {
-        tree.setRoot(1);
-        assertEquals(1, tree.root());
+        tree.setRoot(42);
+        assertEquals(42, tree.root());
     }
 
-    // left tests
+    // left
 
     @Test
     @DisplayName("left should throw NoSuchElementException on empty tree")
@@ -77,11 +77,11 @@ class LinkedBinaryTreeTest extends AbstractLinkedBinaryTreeTest {
     @Test
     @DisplayName("left on a non-empty tree should return the left subtree")
     void left2() {
-        var newTree = new LinkedBinaryTree<>(null, 2, new LinkedBinaryTree<>(null, 4, null));
-        assertEquals(newTree, tree.left());
+        var expected = new LinkedBinaryTree<>(null, 2, new LinkedBinaryTree<>(null, 4, null));
+        assertEquals(expected, tree.left());
     }
 
-    // right tests
+    // right
 
     @Test
     @DisplayName("right should throw NoSuchElementException on empty tree")
@@ -94,11 +94,11 @@ class LinkedBinaryTreeTest extends AbstractLinkedBinaryTreeTest {
     @Test
     @DisplayName("right on a non-empty tree should return the right subtree")
     void right2() {
-        var newTree = new LinkedBinaryTree<>(new LinkedBinaryTree<>(null, 5, null), 3, null);
-        assertEquals(newTree, tree.right());
+        var expected = new LinkedBinaryTree<>(new LinkedBinaryTree<>(null, 5, null), 3, null);
+        assertEquals(expected, tree.right());
     }
 
-    // size tests
+    // size
 
     @Test
     @DisplayName("size of empty should return 0")
