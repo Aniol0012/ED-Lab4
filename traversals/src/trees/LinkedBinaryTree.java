@@ -247,11 +247,16 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             }
 
             lastReturned = next;
-            next = getSuccessor(next);
+            next = getNext(next);
             return lastReturned.element;
         }
 
-        private Node<E> getSuccessor(Node<E> node) {
+        /**
+         * Returns the node that follows {@code node} in an in-order traversal of the binary tree.
+         * @param node
+         * @return
+         */
+        private Node<E> getNext(Node<E> node) {
             if (node.right != null) {
                 return leftMost(node.right);
             } else {
