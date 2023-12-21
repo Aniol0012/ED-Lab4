@@ -13,8 +13,8 @@ class InOrderIteratorTest extends AbstractLinkedBinaryTreeTest {
     @Test
     @DisplayName("In-order traversal of a non-empty tree")
     void testInOrderTraversalNonEmpty() {
-        var expected = List.of(2, 4, 1, 5, 3);
-        assertEquals(expected, iterate(tree.inOrderIterator()), "In-order traversal should match expected sequence for a non-empty tree");
+        var list = List.of(2, 4, 1, 5, 3);
+        assertEquals(list, iterate(tree.inOrderIterator()), "In-order traversal should match expected sequence for a non-empty tree");
     }
 
     @Test
@@ -27,8 +27,8 @@ class InOrderIteratorTest extends AbstractLinkedBinaryTreeTest {
     @DisplayName("hasNext and next methods")
     void testHasNextAndNext() {
         var iterator = tree.inOrderIterator();
-        assertTrue(iterator.hasNext(), "hasNext should return true for a non-empty tree");
-        assertEquals(Integer.valueOf(2), iterator.next(), "Next should return the first element in in-order sequence");
+        assertTrue(iterator.hasNext(), "hasNext should return true if tree is not empty");
+        assertEquals(Integer.valueOf(2), iterator.next(), "Next should return the first element in in-order");
     }
 
     @Test
