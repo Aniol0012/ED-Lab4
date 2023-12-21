@@ -186,11 +186,18 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         private Node<E> next;
         private Node<E> lastReturned;
 
-        // Added to keep track of whether the iterator has been started
-        private boolean started = false;
+        private Stack<Node<E>> stack;
 
         public InOrderIterator() {
-            next = root;
+            stack = new Stack<>();
+            pushLeft(root);
+        }
+
+        private void pushLeft(Node<E> node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
         }
 
         /**
@@ -219,10 +226,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
         @Override
         public boolean hasNext() {
-            if (next == null && !started) {
-                next = findNext(root, null);
-            }
-            return next != null;
+            return !stack.isEmpty();
         }
 
         private Node<E> findNext(Node<E> start, Node<E> target) {
@@ -258,10 +262,15 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            started = true;
-            lastReturned = next;
-            next = findNext(root, next);
-            return lastReturned.element;
+
+            Node<E> current = stack.pop();
+            E result = current.element;
+
+            if (current.right != null) {
+                pushLeft(current.right);
+            }
+
+            return result;
         }
     }
 
