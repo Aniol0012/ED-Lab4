@@ -181,14 +181,18 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         private Node<E> next;
         private Node<E> lastReturned;
 
-        private Stack<Node<E>> stack;
-
         public InOrderIterator() {
-            next = leftmost(root);
+            next = leftMost(root);
             lastReturned = null;
         }
 
-        private Node<E> leftmost(Node<E> node) {
+        /**
+         * Returns the leftmost node in the subtree rooted at {@code node}.
+         *
+         * @param node the root of the subtree
+         * @return the leftmost node in the subtree rooted at {@code node}.
+         */
+        private Node<E> leftMost(Node<E> node) {
             while (node != null && node.left != null) {
                 node = node.left;
             }
@@ -242,7 +246,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
         private Node<E> findInOrderSuccessor(Node<E> node) {
             if (node.right != null) {
-                return leftmost(node.right);
+                return leftMost(node.right);
             } else {
                 Node<E> parent = findParent(root, node);
                 while (parent != null && node == parent.right) {
