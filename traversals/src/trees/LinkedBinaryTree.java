@@ -27,18 +27,15 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         Node<E> right;
         int size;
 
-        // TODO: Exercise 2
 
         Node(Node<E> left, E element, Node<E> right) {
             this.left = left;
             this.element = element;
             this.right = right;
             this.size = 1 + Node.size(left) + Node.size(right);
-            // TODO: Exercise 2
         }
 
         static <E> Node<E> copy(Node<E> node) {
-            // TODO: Exercise 1
             if (node == null) {
                 return null;
             } else {
@@ -47,7 +44,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         }
 
         Node<E> right() {
-            // TODO: Exercise 2
             return right;
         }
 
@@ -92,7 +88,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
 
     public LinkedBinaryTree(LinkedBinaryTree<E> tree) {
-        // TODO: Exercise 1
         if (tree.root == null) {
             root = null;
         } else {
@@ -193,6 +188,11 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             pushLeft(root);
         }
 
+        /**
+         * Pushes the leftmost path from the given node into the stack.
+         *
+         * @param node the node from which to push the leftmost path.
+         */
         private void pushLeft(Node<E> node) {
             while (node != null) {
                 stack.push(node);
@@ -223,30 +223,9 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          *
          * @return {@code true} if the iteration has more elements
          */
-
         @Override
         public boolean hasNext() {
             return !stack.isEmpty();
-        }
-
-        private Node<E> findNext(Node<E> start, Node<E> target) {
-            if (start == null) {
-                return null;
-            }
-            Node<E> left = findNext(start.left, target);
-            if (left != null) {
-                return left;
-            }
-            if (target == null && start.left == null) {
-                return start;
-            }
-            if (start == target) {
-                target = null;
-            }
-            if (target == null && start.right != null) {
-                return findNext(start.right, target);
-            }
-            return findNext(start.right, target);
         }
 
         /**
@@ -255,8 +234,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          * @return the next element in the iteration
          * @throws NoSuchElementException if the iteration has no more elements
          */
-
-
         @Override
         public E next() {
             if (!hasNext()) {

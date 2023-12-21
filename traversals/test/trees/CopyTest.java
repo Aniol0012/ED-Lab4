@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CopyTest extends AbstractLinkedBinaryTreeTest {
 
-    // TODO: Exercise 1
     @Test
     @DisplayName("Test copy constructor creates a copy of the tree")
     void testCopyConstructor() {
