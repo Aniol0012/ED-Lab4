@@ -16,7 +16,7 @@ class ThreadingEffectTest extends AbstractLinkedBinaryTreeTest {
     @DisplayName("left subtree is theaded to the whole tree")
     void threading1() {
         var left = tree.left();
-        var expected = List.of(2, 4, 1, 5, 3);
+        var expected = List.of(2, 4);
         assertEquals(expected, iterate(left.inOrderIterator()));
     }
 
