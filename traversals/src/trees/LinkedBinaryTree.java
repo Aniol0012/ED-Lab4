@@ -178,7 +178,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
      */
     @Override
     public BinaryTreeIterator<E> inOrderIterator() {
-        // TODO: Exercise 3
         return new InOrderIterator();
     }
 
@@ -191,7 +190,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         private boolean started = false;
 
         public InOrderIterator() {
-            // TODO: Exercise 3
             next = root;
         }
 
@@ -205,7 +203,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          */
         @Override
         public void set(E e) {
-            // TODO: Exercise 3
             if (lastReturned == null) {
                 throw new IllegalStateException("The next() method must be called before set()");
             }
@@ -222,7 +219,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
         @Override
         public boolean hasNext() {
-            // TODO: Exercise 3
             if (next == null && !started) {
                 next = findNext(root, null);
             }
@@ -259,7 +255,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
         @Override
         public E next() {
-            // TODO: Exercise 3
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -276,22 +271,18 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
      * @return an iterator for traversing the binary tree in level-order.
      */
 
-    // TODO: Exercise 5
     @Override
     public BinaryTreeIterator<E> levelOrderIterator() {
-        // TODO: Exercise 4
-        throw new UnsupportedOperationException("TODO: Exercise 4");
+        return new LevelOrderIterator(root);
     }
 
-    // TODO: Exercise 5
     private class LevelOrderIterator implements BinaryTreeIterator<E> {
 
-        private final Deque<Node<E>> queue = new ArrayDeque<>(); // Only non-null nodes are in the queue
+        private final Deque<Node<E>> queue = new ArrayDeque<>();
 
         private Node<E> lastReturned;
 
         LevelOrderIterator(Node<E> root) {
-            // TODO: Exercise 4
             if (root != null) {
                 queue.addLast(root);
             }
@@ -313,7 +304,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          */
         @Override
         public void set(E e) {
-            // TODO: Exercise 4
             if (lastReturned == null) {
                 throw new IllegalStateException();
             }
@@ -329,7 +319,6 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          */
         @Override
         public boolean hasNext() {
-            // TODO: Exercise 4
             return !queue.isEmpty();
         }
 
