@@ -184,20 +184,15 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         private Stack<Node<E>> stack;
 
         public InOrderIterator() {
-            stack = new Stack<>();
-            pushLeft(root);
+            next = leftmost(root);
+            lastReturned = null;
         }
 
-        /**
-         * Pushes the leftmost path from the given node into the stack.
-         *
-         * @param node the node from which to push the leftmost path.
-         */
-        private void pushLeft(Node<E> node) {
-            while (node != null) {
-                stack.push(node);
+        private Node<E> leftmost(Node<E> node) {
+            while (node != null && node.left != null) {
                 node = node.left;
             }
+            return node;
         }
 
         /**
@@ -225,7 +220,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          */
         @Override
         public boolean hasNext() {
-            return !stack.isEmpty();
+            return next != null;
         }
 
         /**
@@ -240,14 +235,36 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
                 throw new NoSuchElementException();
             }
 
-            Node<E> current = stack.pop();
-            E result = current.element;
+            lastReturned = next;
+            next = findInOrderSuccessor(next);
+            return lastReturned.element;
+        }
 
-            if (current.right != null) {
-                pushLeft(current.right);
+        private Node<E> findInOrderSuccessor(Node<E> node) {
+            if (node.right != null) {
+                return leftmost(node.right);
+            } else {
+                Node<E> parent = findParent(root, node);
+                while (parent != null && node == parent.right) {
+                    node = parent;
+                    parent = findParent(root, node);
+                }
+                return parent;
             }
+        }
 
-            return result;
+        private Node<E> findParent(Node<E> start, Node<E> child) {
+            if (start == null || start == child) {
+                return null;
+            }
+            if (start.left == child || start.right == child) {
+                return start;
+            }
+            Node<E> leftSearch = findParent(start.left, child);
+            if (leftSearch != null) {
+                return leftSearch;
+            }
+            return findParent(start.right, child);
         }
     }
 
