@@ -253,6 +253,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
 
         /**
          * Returns the node that follows {@code node} in an in-order traversal of the binary tree.
+         *
          * @param node
          * @return
          */
