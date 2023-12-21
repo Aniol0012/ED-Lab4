@@ -25,6 +25,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         Node<E> left;
         E element;
         Node<E> right;
+        Node<E> parent;
         int size;
 
 
@@ -32,6 +33,12 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             this.left = left;
             this.element = element;
             this.right = right;
+            if (left != null) {
+                left.parent = this;
+            }
+            if (right != null) {
+                right.parent = this;
+            }
             this.size = 1 + Node.size(left) + Node.size(right);
         }
 
@@ -248,29 +255,14 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             if (node.right != null) {
                 return leftMost(node.right);
             } else {
-                var parent = getParent(root, node);
+                var parent = node.parent;
 
                 while (parent != null && node == parent.right) {
                     node = parent;
-                    parent = getParent(root, node);
+                    parent = parent.parent;
                 }
                 return parent;
             }
-        }
-
-        private Node<E> getParent(Node<E> start, Node<E> child) {
-            if (start == null || start == child) {
-                return null;
-            }
-            if (start.left == child || start.right == child) {
-                return start;
-            }
-            var left = getParent(start.left, child);
-
-            if (left != null) {
-                return left;
-            }
-            return getParent(start.right, child);
         }
     }
 
