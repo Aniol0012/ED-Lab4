@@ -240,35 +240,37 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             }
 
             lastReturned = next;
-            next = findInOrderSuccessor(next);
+            next = getSuccessor(next);
             return lastReturned.element;
         }
 
-        private Node<E> findInOrderSuccessor(Node<E> node) {
+        private Node<E> getSuccessor(Node<E> node) {
             if (node.right != null) {
                 return leftMost(node.right);
             } else {
-                Node<E> parent = findParent(root, node);
+                var parent = getParent(root, node);
+
                 while (parent != null && node == parent.right) {
                     node = parent;
-                    parent = findParent(root, node);
+                    parent = getParent(root, node);
                 }
                 return parent;
             }
         }
 
-        private Node<E> findParent(Node<E> start, Node<E> child) {
+        private Node<E> getParent(Node<E> start, Node<E> child) {
             if (start == null || start == child) {
                 return null;
             }
             if (start.left == child || start.right == child) {
                 return start;
             }
-            Node<E> leftSearch = findParent(start.left, child);
-            if (leftSearch != null) {
-                return leftSearch;
+            var left = getParent(start.left, child);
+
+            if (left != null) {
+                return left;
             }
-            return findParent(start.right, child);
+            return getParent(start.right, child);
         }
     }
 
