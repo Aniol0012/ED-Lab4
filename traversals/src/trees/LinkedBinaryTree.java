@@ -25,6 +25,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         Node<E> left;
         E element;
         Node<E> right;
+        Node<E> parent;
         int size;
 
 
@@ -32,6 +33,12 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
             this.left = left;
             this.element = element;
             this.right = right;
+            if (left != null) {
+                left.parent = this;
+            }
+            if (right != null) {
+                right.parent = this;
+            }
             this.size = 1 + Node.size(left) + Node.size(right);
         }
 
@@ -181,23 +188,22 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         private Node<E> next;
         private Node<E> lastReturned;
 
-        private Stack<Node<E>> stack;
-
         public InOrderIterator() {
-            stack = new Stack<>();
-            pushLeft(root);
+            next = leftMost(root);
+            lastReturned = null;
         }
 
         /**
-         * Pushes the leftmost path from the given node into the stack.
+         * Returns the leftmost node in the subtree rooted at {@code node}.
          *
-         * @param node the node from which to push the leftmost path.
+         * @param node the root of the subtree
+         * @return the leftmost node in the subtree rooted at {@code node}.
          */
-        private void pushLeft(Node<E> node) {
-            while (node != null) {
-                stack.push(node);
+        private Node<E> leftMost(Node<E> node) {
+            while (node != null && node.left != null) {
                 node = node.left;
             }
+            return node;
         }
 
         /**
@@ -225,7 +231,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
          */
         @Override
         public boolean hasNext() {
-            return !stack.isEmpty();
+            return next != null;
         }
 
         /**
@@ -240,14 +246,23 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
                 throw new NoSuchElementException();
             }
 
-            Node<E> current = stack.pop();
-            E result = current.element;
+            lastReturned = next;
+            next = getSuccessor(next);
+            return lastReturned.element;
+        }
 
-            if (current.right != null) {
-                pushLeft(current.right);
+        private Node<E> getSuccessor(Node<E> node) {
+            if (node.right != null) {
+                return leftMost(node.right);
+            } else {
+                var parent = node.parent;
+
+                while (parent != null && node == parent.right) {
+                    node = parent;
+                    parent = parent.parent;
+                }
+                return parent;
             }
-
-            return result;
         }
     }
 
