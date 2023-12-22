@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class InOrderIteratorTest extends AbstractLinkedBinaryTreeTest {
 
     @Test
-    @DisplayName("In-order traversal of a non-empty tree")
+    @DisplayName("Inorder traversal of a non-empty tree")
     void testInOrderTraversalNonEmpty() {
         var list = List.of(2, 4, 1, 5, 3);
-        assertEquals(list, iterate(tree.inOrderIterator()), "In-order traversal should match expected sequence for a non-empty tree");
+        assertEquals(list, iterate(tree.inOrderIterator()), "Inorder traversal should match expected sequence for a non-empty tree");
     }
 
     @Test
-    @DisplayName("In-order traversal of an empty tree")
+    @DisplayName("Inorder traversal of an empty tree")
     void testInOrderTraversalEmpty() {
-        assertTrue(iterate(empty.inOrderIterator()).isEmpty(), "In-order traversal of an empty tree should be empty");
+        assertTrue(iterate(empty.inOrderIterator()).isEmpty(), "Inorder traversal of an empty tree should be empty");
     }
 
     @Test
