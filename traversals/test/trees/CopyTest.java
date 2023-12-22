@@ -16,7 +16,7 @@ class CopyTest extends AbstractLinkedBinaryTreeTest {
 
         assertEquals(tree, copyTree, "The copy should be equal to the original");
 
-        copyTree.setRoot(99);
+        copyTree.setRoot(50);
         assertNotEquals(tree.root(), copyTree.root(), "Modifying the copy should not affect the original tree");
     }
 }
