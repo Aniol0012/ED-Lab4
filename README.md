@@ -10,7 +10,7 @@ Estructura de Dades - Laboratori 4 UDL
 
 ## Description
 
-This project implements this [document](./Laboratorio%204%20-%20Enunciado%20_v2_.pdf) in Java for lab 4.
+This project implements this [document](./Laboratorio%204%20-%20Enunciado%20_v2_.pdf) in Java for lab 4. Check [report](./Informe_Lab4_Aniol_Hamza.pdf).
 
 ## Installation
 Clone the repo:
