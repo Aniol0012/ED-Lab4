@@ -174,9 +174,9 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
     }
 
     /**
-     * Returns an iterator for traversing the binary tree in in-order.
+     * Returns an iterator for traversing the binary tree in inorder.
      *
-     * @return an iterator for traversing the binary tree in in-order.
+     * @return an iterator for traversing the binary tree in inorder.
      */
     @Override
     public BinaryTreeIterator<E> inOrderIterator() {
@@ -252,7 +252,7 @@ public class LinkedBinaryTree<E> implements BinaryTree<E> {
         }
 
         /**
-         * Returns the node that follows {@code node} in an in-order traversal of the binary tree.
+         * Returns the node that follows {@code node} in an inorder of the binary tree.
          *
          * @param node
          * @return
