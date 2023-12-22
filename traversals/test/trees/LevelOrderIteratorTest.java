@@ -13,13 +13,13 @@ class LevelOrderIteratorTest extends AbstractLinkedBinaryTreeTest {
     @Test
     @DisplayName("In-order traversal of a non-empty tree")
     void testInOrderTraversal() {
-        var expected = List.of(2, 4, 1, 5, 3);
-        assertEquals(expected, iterate(tree.inOrderIterator()), "In-order traversal should match expected sequence");
+        var expected = List.of(1, 2, 3, 4, 5);
+        assertEquals(expected, iterate(tree.levelOrderIterator()), "In-order traversal should match expected sequence");
     }
 
     @Test
     @DisplayName("In-order traversal of an empty tree")
     void testEmptyTreeTraversal() {
-        assertTrue(iterate(empty.inOrderIterator()).isEmpty(), "In-order traversal of an empty tree should be empty");
+        assertTrue(iterate(empty.levelOrderIterator()).isEmpty(), "In-order traversal of an empty tree should be empty");
     }
 }
